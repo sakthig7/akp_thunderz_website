@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router();
+const { protect, authorize } = require('../middleware/auth');
+const { createContact, getContacts, updateContact, deleteContact } = require('../controllers/contactController');
+
+router.post('/', createContact);
+router.get('/', protect, authorize('admin'), getContacts);
+router.put('/:id', protect, authorize('admin'), updateContact);
+router.delete('/:id', protect, authorize('admin'), deleteContact);
+
+module.exports = router;
